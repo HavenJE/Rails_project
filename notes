@@ -1,0 +1,58 @@
+Models are: 
+
+1. Exercises = Posts    join table = categories & users 
+    belongs_to :user
+    belongs_to :category 
+    has_many :users, through: :categories
+    # has_many :comments 
+    
+    attribues:
+    title : text 
+    description = content : text 
+
+    rails g resource exercise title:text description:text user:belongs_to category:belongs_to 
+
+2. Users                
+    has_many :exercises 
+    has_many :categories, through: :exercises 
+    #has_many :comments 
+    #has_many :commented_exercises, through: :comments
+
+    attribues: 
+    username :string 
+    email :string
+    password_digest :string
+
+    rails g resource user username email password_digest
+
+3. Categories  
+     
+    has_many :exercises 
+    has_many :users, through :exercises 
+
+    attribues:
+    name
+
+
+# 4. Comments  join table = posts & users 
+#     belongs_to :user
+#     belongs_to :post 
+
+#     attribues:
+#     content 
+
+
+
+if you have webpacker missing error: do: 
+    rails webpacker:install
+
+webpacker requires yarn install: 
+    npm install --global yarn 
+
+To remove a git from directory 
+    rm -rf .git
+
+Under models > user.rb 
+has_secure_password # This give us access to authentication, validate password and its comformation if we decide to use it 
+
+we use private method to tell which params are permitted or not permitted
