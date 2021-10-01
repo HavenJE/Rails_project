@@ -28,11 +28,12 @@ Models are:
 3. Categories  
      
     has_many :exercises 
-    has_many :users, through :exercises 
+    has_many :users, through: :exercises 
 
     attribues:
     name
 
+    rails g resource category name:text 
 
 # 4. Comments  join table = posts & users 
 #     belongs_to :user
@@ -41,18 +42,65 @@ Models are:
 #     attribues:
 #     content 
 
+The signifying piece of a joined table that it has two belongs_to relationships - Exercises in my project caste! 
 
-
-if you have webpacker missing error: do: 
+# if you have webpacker missing error: do: 
     rails webpacker:install
 
-webpacker requires yarn install: 
+# webpacker requires yarn install: 
     npm install --global yarn 
 
-To remove a git from directory 
+# To remove a git from directory 
     rm -rf .git
 
-Under models > user.rb 
+# This command allows you to create data in the terminal environment only - s = standbox 
+in terminal; rails c -s # This did not work! 
+
+# if you have a ROLLBACK TO SAVEPOINT error in the terminal 
+    variable.errors or 
+    variable.save! 
+    
+# when you work on the terminal, a model like Exercises has two belongs_to relations so when you create a variable for Exercise, make sure to add these two relations e.g. 
+    e = Exercise.create(title: "New Exercise", user: u, category: c)
+To test the above combinations further, you can do: 
+    u.exercises
+
+# To drop the database 
+    rake db:reset 
+
+# Under models > user.rb 
 has_secure_password # This give us access to authentication, validate password and its comformation if we decide to use it 
 
-we use private method to tell which params are permitted or not permitted
+# under new.html.erb, the required:true for f.email is a Front-end protection, user-friendly and replacable, but they don't take care of Back-end protections 
+
+# To set permitted and unpermitted thtings, we set a private method in our user_controller.rb 
+
+# @line 17, we are setting that our first required params is the user and then we use .permit() to put your choice of attributes e.g. :username, :email, :password
+
+# line 9, .save is a Rails method defined within the ActiveRecord::Persistence module. It saves the model. If the model is new, a record gets created in the database, otherwise the existing record gets updated. By default, save always run validations. 
+
+# https://www.youtube.com/watch?v=rK_PV3_tuhA&list=PLI_-ZfHw8Y6Vw6WQb9KRUsgBAqkkXKOPH&index=2&ab_channel=JenniferHansen
+# part 2 
+
+# we made a home page by creating a root route - then linked that home page to the '/signup' page
+
+# To create a login, you need to make sure that you are able to log out 
+    # create a login route 
+    # create a log out route 
+
+# Under users_controller - show method, we could use find_by_id() or find()
+# def show 
+#     @user = User.find_by_id(params[:id]) => if it does not find anything, it returns nil 
+#     @user = User.find(params[:id])
+# end 
+
+# @user = User.find_by_id(params[:id]) => if it does not find anything, it returns nil, and then you probably need to add a logic that says e.g. redirect_to '/home' if !@user 
+# (redirect to home page if you don't find a user)
+
+
+# @user = User.find(params[:id]) => if it does not find anything, it returns an error, and then you probably need to do a rescue statement where you rescue the error with an error page or sending them to home page. 
+
+# we tend to use helper methods in the application controller. 
+
+# I copied all controllers, models, views to the new rails_project with postgres db - got error with http://127.0.0.1:3000 port - so I used the code below to switch to http://127.0.0.1:3001 instead: 
+#    bundle exec puma -C config/puma.rb -b tcp://127.0.0.1:3001 
