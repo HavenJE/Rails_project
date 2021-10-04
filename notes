@@ -79,8 +79,9 @@ has_secure_password # This give us access to authentication, validate password a
 
 # line 9, .save is a Rails method defined within the ActiveRecord::Persistence module. It saves the model. If the model is new, a record gets created in the database, otherwise the existing record gets updated. By default, save always run validations. 
 
-# https://www.youtube.com/watch?v=rK_PV3_tuhA&list=PLI_-ZfHw8Y6Vw6WQb9KRUsgBAqkkXKOPH&index=2&ab_channel=JenniferHansen
 # part 2 
+# https://www.youtube.com/watch?v=rK_PV3_tuhA&list=PLI_-ZfHw8Y6Vw6WQb9KRUsgBAqkkXKOPH&index=2&ab_channel=JenniferHansen
+
 
 # we made a home page by creating a root route - then linked that home page to the '/signup' page
 
@@ -104,3 +105,28 @@ has_secure_password # This give us access to authentication, validate password a
 
 # I copied all controllers, models, views to the new rails_project with postgres db - got error with http://127.0.0.1:3000 port - so I used the code below to switch to http://127.0.0.1:3001 instead: 
 #    bundle exec puma -C config/puma.rb -b tcp://127.0.0.1:3001 
+
+# part 4 
+# https://www.youtube.com/watch?v=n8ZIzH5Ol-Q&list=PLI_-ZfHw8Y6Vw6WQb9KRUsgBAqkkXKOPH&index=5&ab_channel=JenniferHansen
+
+# we add google authentication gems 
+# gem 'omniauth'
+# gem 'dotenv-rails'
+# gem 'omniauth-google-oauth2'
+
+# follow the steps for creating OAuth 2.0 Client IDs 
+# add your GOOGLE_CLIENT_KEY and GOOGLE_CLIENT_SECRET 
+# MAKE SURE YOU ADD the codes below under config/initializers/omniauth.rb as omni now defaults to only POST as allowed request_phase methods. https://stackoverflow.com/questions/65783394/no-route-matches-get-auth-google-oauth2-error-keeps-coming-up
+
+# OmniAuth.config.allowed_request_methods = [:post, :get]
+# OmniAuth.config.silence_get_warning = true
+
+# added google link for sign in in views/sessions/home.html.erb 
+# <%= link_to "Log In With Google", '/auth/google_oauth2' %>  
+# The /auth/google_oauth2 works with omniauth and it gets processed by omniauth initializer to figure out where it need to send it and to what outside resource. Its important to be written that way! But we don't need to add a route in the routes.rb file, however we need to add a callback route over there. 
+
+# After finishing all steps that Jennifer did, make sure you restart your server rails s 
+
+# Scope - from 40:00 
+# scope method is a class level method that limit your return to be like a scoped return => returns some of the instances e.g. some of the exercises - it can very useful to sort or organise by a category. 
+# on working on scope method, take a look at your schema because we need to work on the attribues 
