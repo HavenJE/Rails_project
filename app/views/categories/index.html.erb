@@ -1,1 +1,15 @@
 <h1> Check Your Exercises Categories </h1> 
+
+<% if @categories.empty? %>
+    <h2> No category has been listed yet. </h2>
+<% else %>
+
+    <ol>
+        <%= @categories.each do |c| %>
+            
+            <strong> Category Name: </strong> <%= c.name %> 
+            <br> 
+
+        <% end %> 
+    </ol> 
+<% end %>

@@ -106,8 +106,10 @@ has_secure_password # This give us access to authentication, validate password a
 # I copied all controllers, models, views to the new rails_project with postgres db - got error with http://127.0.0.1:3000 port - so I used the code below to switch to http://127.0.0.1:3001 instead: 
 #    bundle exec puma -C config/puma.rb -b tcp://127.0.0.1:3001 
 
-# part 4 
+# part 4 - authentication 
 # https://www.youtube.com/watch?v=n8ZIzH5Ol-Q&list=PLI_-ZfHw8Y6Vw6WQb9KRUsgBAqkkXKOPH&index=5&ab_channel=JenniferHansen
+
+# medium blog useful link: https://medium.com/swlh/google-authentication-strategy-for-rails-5-application-cd37947d2b1b
 
 # we add google authentication gems 
 # gem 'omniauth'
@@ -130,3 +132,55 @@ has_secure_password # This give us access to authentication, validate password a
 # Scope - from 40:00 
 # scope method is a class level method that limit your return to be like a scoped return => returns some of the instances e.g. some of the exercises - it can very useful to sort or organise by a category. 
 # on working on scope method, take a look at your schema because we need to work on the attribues 
+# we scope method perferably called in the controller 
+
+# part 5 - validtion 
+# https://www.youtube.com/watch?v=2jlQ3YiCmIY&list=PLI_-ZfHw8Y6Vw6WQb9KRUsgBAqkkXKOPH&index=5&ab_channel=JenniferHansen
+
+# before doing your validtion, you want your error messages to be displayed on the views 
+
+# If you rendering the form again and you want to assign error messages, the easiest code that will show your errors for you is in that rails link below:
+# https://guides.rubyonrails.org/active_record_validations.html#displaying-validation-errors-in-views
+
+# if you add an exericse while its empty and you inspect the page, it will show you <div class="field_with_errors"> </div> - this has been created when using form_for as it accepts an object that has an error and automatically add the error div without us doing any logic for that. However, the page must be rendered, because if you redirect that back, we will lose the info that has been filled on the page. 
+
+# how can you tell if the form is rendered/re-rendered or redircted? => The hint is: its rendered if we inspect the page and we see it has; class="field_with_errors"> </div> and the info is displayed in the page, not lost. 
+
+# Where would you put codes that you need in multiple files aka repetitve codes? 
+# => something that we need in every page - goes to layout 
+# => if its a view-related info => you could make that code a partial (Jennifer recons), and her reason that she has a lot of html code (div, h1/2/3, ul, li, etc) - some suggests using helpers - but Jennifer says helpers use Ruby codes not html code. 
+
+# @13:04, we created _errors.html.erb under layouts to have the error message rendered whenever a resource is missing e.g. forgot to add category, exercise, user etc - we using rails guide link; https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials - and the code is:    <%= render partial: "errors", locals: {object: @exercise} %>
+# object is what we named in the errors message;  object.errors 
+
+# @18:11, to custom your validation, you write it as: 
+# validate :too_many_exercise
+# you need to define too_many_exercise as a method 
+
+# when you are in a instance method => you have access to self 
+
+# @41:22, Refactoring 
+# We only use partials when we know that we have a repetitive code, if we don't have, then there is no need for it. 
+# if we have a method that we need for only the controller within => we make it private method 
+# if we have a method that we need to many controllers => we put it in the application_controller 
+
+# If the exericse is not saved within the user's all exercises page, its probably because one of the belongs_to relations is not fulfilled 
+
+# the advantage of using find_by is that it does not raise an error 
+
+# queries like; where, order, grouping, or any of those SQL words => that's probably a hint that it should be moved to your model 
+
+# how to make a decision about using helper only or a combo of helpers and partials? 
+# 1. we use a helper method in a spot where you need to render/change a code btw two html tags 
+# 2. if it changing the complete code that is being rendered => use a combo of helpers and partials 
+
+# the helper folder is only for => views 
+# if you going to move a code from erb file (emboded Ruby) into a .rb file (Ruby) => remove all <% %>, and use Ruby intropolation #{ }
+
+# https://www.youtube.com/watch?v=HCpO4RIr8-c&ab_channel=JenniferHansen 
+# Nested Form link-Jennifer 
+
+# @9:28, form_for can accept an object e.g. @exercise or a symbol 
+
+# under views folder > exercises folder > new.html.erb nested forms -> in line 20, when setting the fields_for :category => we are setting it for the model - whereas, when you setting it for :category_id => then the value you passing through will be a number. 
+# @33:20, for the above point to work, you need to go to exercise_controller, on def exercise_params, add category_attributes:[:name] with other attributes if there are any. Also, make sure you have no changes to your create method. 

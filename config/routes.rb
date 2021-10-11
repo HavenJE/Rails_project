@@ -19,11 +19,15 @@ Rails.application.routes.draw do
   get '/auth/google_oauth2/callback' => 'sessions#google' # for one type of omniauth 
   # get '/auth/:provider/callback' # could be written like that if you want to develop 3 different types of omniauth and you want all of them to go to the same place in your controller. 
 
+  get 'update' => 'exercises#update'
+  get 'destroy' => 'exercises#destroy'
   # resources :sessions
   resources :categories
-  resources :users do 
-    resources :exercises, only: [:new, :create, :index]
-  end 
+  resources :users 
+  
+  # do 
+  #   resources :exercises, only: [:new, :create, :index]
+  # end 
   resources :exercises do 
     resources :categories 
     # these routes within [] are called shallow routing (its crucial to have the _id)

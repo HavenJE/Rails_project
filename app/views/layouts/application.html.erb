@@ -15,12 +15,12 @@
     <div>
       <br>  
       <% if logged_in? %>
-      <%= link_to "Add a Category", new_category_path %> |
-  
-      <%= link_to "Check All Categories", categories_path %> | 
-      
+    
       <%= link_to "Add an Exercise", new_exercise_path %> |
+
       <%= link_to "Check All Exercises", exercises_path %> |
+
+      <%= link_to "Check All Categories", categories_path %> |
       <br>
       <%= link_to "logout", logout_path, method:"delete" %> 
 

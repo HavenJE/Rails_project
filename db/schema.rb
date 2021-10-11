@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2021_09_29_051437) do
     t.text "title"
     t.text "description"
     t.bigint "user_id", null: false
-    t.bigint "category_id" 
+    t.bigint "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_exercises_on_category_id"

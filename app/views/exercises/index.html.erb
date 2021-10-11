@@ -1,5 +1,29 @@
 <h1> Check Your Favourite Exercises </h1> 
 
+<% if @exercises.empty? %>
+    <h2> No exercise has been listed yet. Create one <%= link_to "here", new_exercise_path %> </h2>
+<% else %> 
 
+    <ol>
+        <%= @exercises.each do |e| %>
+            
+            <strong> Exercise Name: </strong> <%= e.title %> 
+            <br> 
 
-    
+            <strong> Description: </strong> <%= e.description %>
+            <br>
+            
+            <%= link_to "Edit Exercise", edit_exercise_path(@exercises) %>
+            <br>
+            <br> 
+            <strong> Category: </strong> <%= e.category %> 
+            <br>
+        
+            <%= link_to "Edit Category", edit_category_path(@exercises) %>
+            <br>
+            
+        <% end %> 
+    </ol> 
+<% end %> 
+
+   

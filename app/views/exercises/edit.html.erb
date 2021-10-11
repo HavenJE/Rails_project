@@ -1,0 +1,20 @@
+<h1> Edit <%= @post.title %> </h1> 
+
+<%= render partial: "layouts/errors", locals: {object: @exercise} %>
+
+<%= form_for(@exercise) do |f| %> 
+
+    <%= f.label "Assign a Category:" %> 
+    <%= f.collection_select :category_name, Category.all, :id, :name, include_blank: false %> 
+    <br>
+    <br>
+    <%= f.label :title %> 
+    <%= f.text_field :title %>
+    <br>
+    <br>
+    <%= f.label :description %> 
+    <%= f.text_area :description %>
+    <br>
+    <br>
+    <%= f.submit :"Add The Exercise" %> 
+<% end %> 
