@@ -7,9 +7,10 @@
     <ol>
         <%= @categories.each do |c| %>
             
-            <strong> Category Name: </strong> <%= c.name %> 
+           <li> <strong> Category Name: </strong> <%= c.name %> </li> 
             <br> 
-
+            <%= button_to "Delete Category", c, method: :delete %>
+            <br> 
         <% end %> 
     </ol> 
 <% end %>

@@ -1,6 +1,6 @@
 class Exercise < ApplicationRecord
   belongs_to :user
-  belongs_to :category, optional: true 
+  belongs_to :category, dependent: :destroy 
   has_many :users, through: :categories
 
   validates :title, :description, presence: true 

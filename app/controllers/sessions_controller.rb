@@ -17,6 +17,7 @@ class SessionsController < ApplicationController
             redirect_to user_path(user) # this path = "/users/#{user.id}"
         else 
             flash[:message] = "Incorrect login details, please try again!"
+            
             redirect_to '/login'
         end 
     end  

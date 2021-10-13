@@ -1,0 +1,36 @@
+
+<%= render partial: "layouts/errors", locals: {object: @exercise} %>
+
+
+<%= form_for(@exercise) do |f| %> 
+
+    <strong> <%= f.label "Assign Category For Exercise:" %> </strong> 
+    <p> <small> e.g. upper limbs, lower limbs or specific joints; elbow, knee, etc </small> </p>    
+    <%= f.collection_select :category, Category.all, :id, :name %> 
+
+    <br> 
+
+<! -- Nested Form --> 
+
+    <p> Or create a new category below: </p> 
+        <%= f.fields_for :category, @exercise.build_category do |c| %>
+        <%= c.label :name %> 
+        <%= c.text_field :name %>
+    <% end %>
+
+    <br> 
+    <br> 
+    
+    <p> <strong> Exercise Details: </strong> </p> 
+    <%= f.label :title %> 
+    <%= f.text_field :title %>
+
+    <br>
+    <br>
+
+    <%= f.label :description %> 
+    <%= f.text_area :description %>
+    <p> <small> e.g. Description accepts text only, no numbers! </small> </p> 
+
+    <%= f.submit :"Add The Exercise" %> 
+<% end %> 

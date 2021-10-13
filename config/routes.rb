@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   get 'update' => 'exercises#update'
   get 'destroy' => 'exercises#destroy'
+
   # resources :sessions
   resources :categories
   resources :users 
@@ -28,6 +29,7 @@ Rails.application.routes.draw do
   # do 
   #   resources :exercises, only: [:new, :create, :index]
   # end 
+  
   resources :exercises do 
     resources :categories 
     # these routes within [] are called shallow routing (its crucial to have the _id)

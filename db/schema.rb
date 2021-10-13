@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 2021_09_29_051437) do
 
   create_table "categories", force: :cascade do |t|
     t.text "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", precision: 6, null: true
+    t.datetime "updated_at", precision: 6, null: true
   end
 
   create_table "exercises", force: :cascade do |t|
@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 2021_09_29_051437) do
     t.text "description"
     t.bigint "user_id", null: false
     t.bigint "category_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", precision: 6, null: true 
+    t.datetime "updated_at", precision: 6, null: true
     t.index ["category_id"], name: "index_exercises_on_category_id"
     t.index ["user_id"], name: "index_exercises_on_user_id"
   end

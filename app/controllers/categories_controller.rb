@@ -33,6 +33,21 @@ class CategoriesController < ApplicationController
         
     end 
 
+    def update 
+        @category = Category.find_by(id: params[:id])
+        @category.update(category.params)
+        redirect_to category_path(@category) 
+
+    end
+      
+
+    def destroy 
+        @category = Category.find(params[:id]) 
+        @category.destroy 
+         
+        redirect_to exercises_path
+    end 
+
     private
 
     def category_params

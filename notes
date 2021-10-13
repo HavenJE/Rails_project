@@ -184,3 +184,26 @@ has_secure_password # This give us access to authentication, validate password a
 
 # under views folder > exercises folder > new.html.erb nested forms -> in line 20, when setting the fields_for :category => we are setting it for the model - whereas, when you setting it for :category_id => then the value you passing through will be a number. 
 # @33:20, for the above point to work, you need to go to exercise_controller, on def exercise_params, add category_attributes:[:name] with other attributes if there are any. Also, make sure you have no changes to your create method. 
+
+# Notes from Albert sessions 
+# Thursday 26 Aug @1:44:13 - CRUD, doing update and delete methods 
+
+# Tuesday 31 Aug - setting validations, custom validators, error messages, DELETE fomrs and requests, associations - here he create a form partial _form to be used by edit and new.html.erb 
+
+# to add an attribute e.g. comment_id to a model e.g. user, through migration, use the below code:
+# rails g migration add_comment_id_to_user user:references  
+# then you need to do; rails db:migrate 
+
+# to reload the previous migration you did, do:
+# rails db:rollback 
+
+# on rails c, to associate an exercise to a category using the .build method, we can do it as below:
+# record1 = Exercise.new(title: "bench press", description: "pec muscles group strength")
+# record2 = Category.first.exercises.build(name: "chest")
+# then do, record2.save 
+# to check your work, do Category.first.exercises => it should show your work 
+# you could also do, Category.first.exercise << record1 
+# then if you invoke record1, then it should show an id 
+
+# Albert Monday 6 Sep
+# partials and layouts, 

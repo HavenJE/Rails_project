@@ -5,7 +5,7 @@ class ExercisesController < ApplicationController
     def index 
         # then its nested && we could successfuly find a user - first it setting the value of (after &&) and then its evaluating if @user nil or something? if something, then its true and continues reading the code. 
         if params[:user_id] && @user = User.find_by_id(params[:user_id])
-            @exercises = @user.exercises.alpha.capitalize 
+            @exercises = @user.exercises.alpha 
         else 
             @error = "That exercise does not exit" if params[:user_id]
             @exercises = Exercise.all.alpha  
@@ -18,9 +18,7 @@ class ExercisesController < ApplicationController
     end 
 
     def create
-        # raise params.inspect 
         @exercise = current_user.exercises.build(exercise_params)
-        # p @exercise
         if @exercise.save 
             redirect_to exercises_path # to redirect to the - Check All Exercises - page 
         else 
@@ -39,26 +37,41 @@ class ExercisesController < ApplicationController
 
     def update 
         @exercise = Exercise.find_by(id: params[:id])
-        redirect_to exercises_path @exericse.user != current_user
-        if @exercise.update(exericse.params)
-            redirect_to exercise_path(@exercise) 
-        else 
-            render :edit 
-        end
+        @exercise.update(exericse.params)
+        redirect_to exercise_path(@exercise) 
+
+        # redirect_to exercises_path @exericse.user != current_user
+        # if @exercise.update(exericse.params)
+        #     redirect_to exercise_path(@exercise) 
+        # else 
+        #     render :edit 
+    end
       
-
-        def destroy 
-            @exericse = Exercise.find(params[:id])
-            @exericse.clear # or .destroy 
+    def destroy 
+        @exericse = Exercise.find(params[:id])
+        @category = Category.find(params[:id]) if @category 
+        if @exericse.destroy
+            # flash[:notice] = "The record has been deleted successfully!"
             redirect_to exercises_path
+        else 
+            flash[:error] = "There was an error deleting this record."
         end 
+        # if @exericse.destroy 
+        #     @category.destroy
+        # redirect_to exercises_path
+        # end 
     end 
-
+ 
     private
 
     def exercise_params
         params.require(:exercise).permit(:title, :description, category_attributes:[:name])
     end 
+end
+
+
+
+
 
     # def set_exercise
     #     @exercise = Exercise.find_by(id: params[:id])
@@ -68,7 +81,7 @@ class ExercisesController < ApplicationController
     #     end 
     # end 
     
-end
+
 
 # If the exericse is not saved within the user's all exercises page, its probably because one of the belongs_to relations is not fulfilled 
 
